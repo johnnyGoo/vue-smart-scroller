@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>vue-smart-scroller</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<style>
+    body, html, #app {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .scroller {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+    }
+
+
+</style>
+<body>
+<div id="app">
+    <vue-smart-scroller @render="render" ref="scroller" class="scroller"
+                        :options="{minZoom:1,zooming:true,scrollingX:false,penetrationAcceleration:0.15,penetrationDeceleration:0.18}">
+        <img src="http://h5.2smart.cn/2017/sharp/images/index_bg.jpg"/>
+        <img src="http://h5.2smart.cn/2017/sharp/images/index_bg.jpg"/>
+    </vue-smart-scroller>
+</div>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script src="dist/vue-smart-scroller.js"></script>
+<script>
+    new Vue({
+        el: '#app', data: {values: {left: 0, top: 0, zoom: 0}},
+        mounted: function () {
+        },
+        methods: {
+            render: function (values) {
+                this.values = values
+                //console.log(this.$refs.scroller.max)
+            }
+        },
+        components: {
+            VueSmartScroller: VueSmartScroller
+        }
+    })
+</script>
+</body>
+</html>
