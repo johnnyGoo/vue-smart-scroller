@@ -46,6 +46,27 @@
 
     Raf(componnet);
     Animate(componnet);
+    function fixCss(name, attr) {
+        let cssObj = {};
+        if (!attr || attr === '') {
+            return cssObj;
+        }
+        cssObj[name] = attr;
+        cssObj['-webkit-' + name] = attr;
+        cssObj['-moz-' + name] = attr;
+        cssObj['-ms-' + name] = attr;
+        cssObj['-o-' + name] = attr;
+        return cssObj;
+    };
+     function css(el, obj) {
+        if (el && obj) {
+            for (let i in obj) {
+                if (el.style) {
+                    el.style[i] = obj[i];
+                }
+            }
+        }
+    };
 
 
     // 注册
@@ -53,6 +74,9 @@
         name: 'vue-smart-scroller',
         // 声明 props
         props: {
+            touchEl:{
+                default:null
+            },
             contentWidth: {
                 type: Number,
                 default: 0
@@ -83,7 +107,11 @@
                 this.max.left = this.scroller.__maxScrollLeft
                 this.max.top = this.scroller.__maxScrollTop
                 this.$emit('render', this.values)
-                this.content.style['transform'] = 'translate(' + (-left) + 'px,' + (-top) + 'px) scale(' + zoom + ')';
+                //this.content.style['transform'] = 'translate(' + (-left) + 'px,' + (-top) + 'px) scale(' + zoom + ')';
+                css(this.content,fixCss('transform','translate(' + (-left) + 'px,' + (-top) + 'px) scale(' + zoom + ')'))
+
+
+               // this.content.style['-webkit-transform'] = 'translate(' + (-left) + 'px,' + (-top) + 'px) scale(' + zoom + ')';
             },
             updateSize: function () {
                 let clientWidth = this.container.clientWidth;
@@ -113,6 +141,10 @@
             this.content.onmousedown = function (e) {
                 e.preventDefault()
             };
+
+            if(!this.touchEl){
+                this.touchEl=container;
+            }
 
             this.updateSize()
 

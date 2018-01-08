@@ -24,33 +24,57 @@
         overflow: hidden;
 
     }
+    img{
+        display: block;
+    }
 
 
 </style>
 <body>
 <div id="app">
-    <vue-smart-scroller @render="render" ref="scroller" class="scroller"
+    <vue-smart-scroller :touch-el="window" @render="render" ref="scroller" class="scroller"
                         :options="{minZoom:1,zooming:true,scrollingX:false,penetrationAcceleration:0.15,penetrationDeceleration:0.18}">
-        <img src="http://h5.2smart.cn/2017/sharp/images/index_bg.jpg"/>
-        <img src="http://h5.2smart.cn/2017/sharp/images/index_bg.jpg"/>
+        <img src="http://h5.2smart.cn/2017/sharp/images/index_bg.jpg" width="100%"/>
+        <img src="http://h5.2smart.cn/2017/sharp/images/index_bg.jpg" width="100%"/>
+        <vue-smart-keyframe ref="stone" style="z-index: 100;top:50px;left: 50px;position: fixed;" transition-time="0s" :value="value" :base="0"
+                            :time="2"
+                            :frames="[{key:'0',x:50,y:5,scaleX:0.5,scaleY:0.5},{key:'30',x:170,y:400,rotateZ:130,scaleX:1.7,scaleY:1.7},{key:'50',x:200,y:600,rotateZ:590,scaleX:2,scaleY:2,rotateX:360},{key:'90',x:50,y:1000,rotateZ:380,opacity:1},{key:'100',x:50,y:1200,rotateZ:380,opacity:0}]">
+            <img src="http://h5.2smart.cn/2017/momo/img/ass033.png"/>
+        </vue-smart-keyframe>
+
     </vue-smart-scroller>
+
 </div>
 
 <script src="node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-smart-keyframe/dist/vue-smart-keyframe.js"></script>
 <script src="dist/vue-smart-scroller.js"></script>
 <script>
+
     new Vue({
-        el: '#app', data: {values: {left: 0, top: 0, zoom: 0}},
+        el: '#app', data: {
+            values: {left: 0, top: 0, zoom: 0},
+            value: 0,
+            window: window
+        },
         mounted: function () {
+            var self=this;
+            this.$nextTick(function () {
+                self.value=0.0001
+                self.$refs.stone.update()
+            })
+
         },
         methods: {
             render: function (values) {
                 this.values = values
+
+                this.value = values.top / 200
                 //console.log(this.$refs.scroller.max)
             }
         },
         components: {
-            VueSmartScroller: VueSmartScroller
+            VueSmartScroller: VueSmartScroller, VueSmartKeyframe: VueSmartKeyframe
         }
     })
 </script>

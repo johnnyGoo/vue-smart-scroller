@@ -1,7 +1,7 @@
 {
   "name": "vue-smart-scroller",
   "description": "a vue scroller component base on zynga/scroller",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Johnny <157781745@qq.com>",
   "license": "MIT",
   "main": "dist/vue-smart-scroller.js",
@@ -52,6 +52,7 @@
     "vue-jest": "^1.0.2",
     "vue-loader": "^13.3.0",
     "vue-slider-component": "^2.4.7",
+    "vue-smart-keyframe": "^1.0.4",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",
